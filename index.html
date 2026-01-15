@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Career Day Candidates • CSV Tool</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+    <div class="wrap">
+        <div class="brand">
+            <div class="brandMark">CD</div>
+            <div>
+                <h1>Career Day Candidates</h1>
+                <p class="sub">Καταχώρηση υποψηφίων - Τοπική Χρήση + insights (CSV export/import)</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="btnExport" class="btn primary">Export CSV</button>
+            <label class="btn ghost" for="fileImport">Import CSV</label>
+            <input id="fileImport" type="file" accept=".csv" hidden />
+            <button id="btnClear" class="btn danger">Clear Local Data</button>
+        </div>
+    </div>
+</header>
+
+<main class="wrap splitLayout">
+
+    <!-- TOP: Form -->
+    <section class="card formPanel">
+        <div class="panelHeader">
+            <h2>Καταχώρηση Υποψηφίου</h2>
+            <div class="panelHint">Συμπλήρωσε → Save → βλέπεις άμεσα stats & list</div>
+        </div>
+
+        <form id="candidateForm" class="form formScrollable">
+
+            <!-- SECTION: Basic -->
+            <div class="formSection">
+                <div class="formSectionTitle">Βασικά στοιχεία</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>candidate_id *</label>
+                    <input id="candidate_id" type="number" min="1" placeholder="π.χ. 1" required />
+                </div>
+                <div class="field">
+                    <label>meeting_date</label>
+                    <input id="meeting_date" type="date" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>first_name *</label>
+                    <input id="first_name" type="text" placeholder="Όνομα" required />
+                </div>
+                <div class="field">
+                    <label>last_name *</label>
+                    <input id="last_name" type="text" placeholder="Επώνυμο" required />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>gender</label>
+                    <select id="gender">
+                        <option value="">(empty)</option>
+                        <option value="female">female</option>
+                        <option value="male">male</option>
+                        <option value="other">other</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>age</label>
+                    <input id="age" type="number" min="0" placeholder="π.χ. 28" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>age_group</label>
+                    <select id="age_group">
+                        <option value="">(empty)</option>
+                        <option value="20+">20+</option>
+                        <option value="30+">30+</option>
+                        <option value="40+">40+</option>
+                        <option value="50+">50+</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>phone</label>
+                    <input id="phone" type="text" placeholder="+30..." />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>email</label>
+                    <input id="email" type="email" placeholder="example@mail.com" />
+                </div>
+                <div class="field">
+                    <label>primary_skill</label>
+                    <input id="primary_skill" type="text" placeholder="π.χ. Java / Cyber Security / QA" />
+                </div>
+            </div>
+
+            <!-- SECTION: Education & Experience -->
+            <div class="formSection">
+                <div class="formSectionTitle">Σπουδές & Εμπειρία</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>degree</label>
+                    <input id="degree" type="text" placeholder="π.χ. BSc Computer Science" />
+                </div>
+                <div class="field">
+                    <label>masters</label>
+                    <input id="masters" type="text" placeholder="π.χ. MSc Cyber Security (in progress)" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>years_of_experience</label>
+                    <input id="years_of_experience" type="number" min="0" placeholder="π.χ. 0, 1, 3, 8" />
+                </div>
+                <div class="field">
+                    <label>work_preference</label>
+                    <select id="work_preference">
+                        <option value="">(empty)</option>
+                        <option value="onsite">onsite</option>
+                        <option value="hybrid">hybrid</option>
+                        <option value="remote">remote</option>
+                        <option value="open_to_relocation">open_to_relocation</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION: Roles -->
+            <div class="formSection">
+                <div class="formSectionTitle">Ρόλοι ενδιαφέροντος</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>interested_role_1</label>
+                    <input id="interested_role_1" type="text" placeholder="π.χ. Junior Backend Developer" />
+                </div>
+                <div class="field">
+                    <label>interested_role_2</label>
+                    <input id="interested_role_2" type="text" placeholder="π.χ. SOC Analyst" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>interested_role_3</label>
+                    <input id="interested_role_3" type="text" placeholder="π.χ. QA Tester" />
+                </div>
+                <div class="field">
+                    <label>availability</label>
+                    <select id="availability">
+                        <option value="">(empty)</option>
+                        <option value="immediate">immediate</option>
+                        <option value="1_month">1_month</option>
+                        <option value="3_months">3_months</option>
+                        <option value="student">student</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION: Recruiting -->
+            <div class="formSection">
+                <div class="formSectionTitle">Recruiting αξιολόγηση</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>overall_impression</label>
+                    <select id="overall_impression">
+                        <option value="">(empty)</option>
+                        <option value="positive">positive</option>
+                        <option value="neutral">neutral</option>
+                        <option value="negative">negative</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>left_cv</label>
+                    <select id="left_cv">
+                        <option value="">(empty)</option>
+                        <option value="yes">yes</option>
+                        <option value="no">no</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>follow_up_priority</label>
+                    <select id="follow_up_priority">
+                        <option value="">(empty)</option>
+                        <option value="high">high</option>
+                        <option value="medium">medium</option>
+                        <option value="low">low</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>follow_up_status</label>
+                    <select id="follow_up_status">
+                        <option value="">(empty)</option>
+                        <option value="not_contacted">not_contacted</option>
+                        <option value="emailed">emailed</option>
+                        <option value="called">called</option>
+                        <option value="interview_scheduled">interview_scheduled</option>
+                        <option value="rejected">rejected</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION: Links -->
+            <div class="formSection">
+                <div class="formSectionTitle">Links</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>linkedin_url</label>
+                    <input id="linkedin_url" type="url" placeholder="https://www.linkedin.com/in/..." />
+                </div>
+                <div class="field">
+                    <label>github_url</label>
+                    <input id="github_url" type="url" placeholder="https://github.com/..." />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>other_social_url</label>
+                    <input id="other_social_url" type="url" placeholder="https://..." />
+                </div>
+                <div class="field">
+                    <label>data_source</label>
+                    <select id="data_source">
+                        <option value="career_day">career_day</option>
+                        <option value="linkedin">linkedin</option>
+                        <option value="referral">referral</option>
+                        <option value="email">email</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION: Event -->
+            <div class="formSection">
+                <div class="formSectionTitle">Event</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="row">
+                <div class="field">
+                    <label>event_name</label>
+                    <input id="event_name" type="text" value="Ημέρες Καριέρας ΔΥΠΑ Αθήνα 2026" />
+                </div>
+                <div class="field">
+                    <label>company_booth</label>
+                    <input id="company_booth" type="text" placeholder="π.χ. CompanyName" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label>event_notes</label>
+                <input id="event_notes" type="text" placeholder="Σημειώσεις για booth/συζήτηση..." />
+            </div>
+
+            <!-- SECTION: Notes -->
+            <div class="formSection">
+                <div class="formSectionTitle">Σχόλια</div>
+                <div class="formSectionLine"></div>
+            </div>
+
+            <div class="field">
+                <label>recruiter_comments</label>
+                <textarea id="recruiter_comments" rows="2" placeholder="Σχόλια recruiter..."></textarea>
+            </div>
+
+            <div class="field">
+                <label>candidate_extra_info</label>
+                <textarea id="candidate_extra_info" rows="2" placeholder="Extra info από τον υποψήφιο..."></textarea>
+            </div>
+
+            <button type="submit" class="btn primary full">Save Candidate</button>
+        </form>
+    </section>
+
+    <!-- BOTTOM: Dashboard + Table -->
+    <section class="bottomRow">
+        <section class="card">
+            <div class="dashHeader">
+                <h2>Dashboard</h2>
+                <div class="dashNote">Realtime stats από τα δεδομένα που έχεις καταχωρήσει</div>
+            </div>
+
+            <div class="kpis" id="kpis"></div>
+
+            <div class="dashGrid">
+                <div class="miniCard">
+                    <h3>Seniority</h3>
+                    <div class="list" id="seniorityBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Top Roles -Top 5</h3>
+                    <div class="list" id="topRolesBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Skills</h3>
+                    <div class="list" id="skillsBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Impressions</h3>
+                    <div class="list" id="impressionsBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Follow-up Priority</h3>
+                    <div class="list" id="priorityBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Funnel</h3>
+                    <div class="list" id="funnelBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>CV Drop Rate</h3>
+                    <div class="list" id="cvBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Availability</h3>
+                    <div class="list" id="availabilityBox"></div>
+                </div>
+                <div class="miniCard">
+                    <h3>Remote Proxy</h3>
+                    <div class="list" id="remoteBox"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="tableHeader">
+                <h2>Υποψήφιοι</h2>
+                <input id="search" class="search" type="text" placeholder="Search: name, email, skill, role..." />
+            </div>
+
+            <div class="tableWrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Όνομα</th>
+                        <th>Skill</th>
+                        <th>Roles</th>
+                        <th>Impression</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>CV</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer class="footerBar">
+    <div class="wrap footerInner">
+        <div class="footerLeft">
+            <span class="dot"></span>
+            <span>Created by <strong>Myrsini Kampa</strong></span>
+            <a class="footerLink" href="https://www.linkedin.com/in/myrsinikampa" target="_blank" rel="noopener noreferrer">
+                LinkedIn Profile
+            </a>
+        </div>
+
+        <div class="footerRight">
+            <span class="tag">Local-only</span>
+            <span class="tag">No data sent</span>
+            <span class="tag">CSV export/import</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const STORAGE_KEY = "career_day_candidates_v1";
+
+    const HEADERS = [
+        "candidate_id","first_name","last_name","gender","age","age_group","degree","masters","years_of_experience",
+        "primary_skill","phone","email","interested_role_1","interested_role_2","interested_role_3",
+        "recruiter_comments","candidate_extra_info","overall_impression","left_cv",
+        "linkedin_url","github_url","other_social_url","availability","work_preference",
+        "follow_up_priority","follow_up_status","event_notes","data_source","meeting_date","event_name","company_booth"
+    ];
+
+    let candidates = loadCandidates();
+    renderAll();
+
+    document.getElementById("candidateForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const obj = readFormAsObject();
+        if (!obj) return;
+
+        const idx = candidates.findIndex(c => String(c.candidate_id) === String(obj.candidate_id));
+        if (idx >= 0) candidates[idx] = obj;
+        else candidates.push(obj);
+
+        saveCandidates();
+        e.target.reset();
+
+        document.getElementById("event_name").value = "Ημέρες Καριέρας ΔΥΠΑ Αθήνα 2026";
+        renderAll();
+    });
+
+    document.getElementById("btnExport").addEventListener("click", () => {
+        const csv = toCsv(candidates, HEADERS);
+        downloadText(csv, "career_day_candidates.csv", "text/csv");
+    });
+
+    document.getElementById("btnClear").addEventListener("click", () => {
+        if (!confirm("Σίγουρα θες να σβήσεις όλα τα τοπικά δεδομένα;")) return;
+        candidates = [];
+        saveCandidates();
+        renderAll();
+    });
+
+    document.getElementById("search").addEventListener("input", (e) => {
+        renderTable(e.target.value.trim().toLowerCase());
+    });
+
+    document.getElementById("fileImport").addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const text = await file.text();
+        const imported = parseCsv(text);
+
+        if (!imported || imported.length === 0) {
+            alert("Δεν βρέθηκαν γραμμές για import.");
+            return;
+        }
+
+        for (const row of imported) {
+            const idx = candidates.findIndex(c => String(c.candidate_id) === String(row.candidate_id));
+            if (idx >= 0) candidates[idx] = row;
+            else candidates.push(row);
+        }
+
+        saveCandidates();
+        renderAll();
+        e.target.value = "";
+    });
+
+    function readFormAsObject() {
+        const obj = {};
+        for (const h of HEADERS) {
+            const el = document.getElementById(h);
+            if (!el) continue;
+            obj[h] = (el.value || "").trim();
+        }
+
+        if (!obj.candidate_id) {
+            alert("candidate_id είναι υποχρεωτικό.");
+            return null;
+        }
+        if (!obj.first_name || !obj.last_name) {
+            alert("Όνομα και Επώνυμο είναι υποχρεωτικά.");
+            return null;
+        }
+
+        obj.age = obj.age ? String(parseInt(obj.age, 10)) : "";
+        obj.years_of_experience = obj.years_of_experience ? String(parseInt(obj.years_of_experience, 10)) : "";
+
+        return obj;
+    }
+
+    function loadCandidates() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return [];
+            const arr = JSON.parse(raw);
+            return Array.isArray(arr) ? arr : [];
+        } catch {
+            return [];
+        }
+    }
+
+    function saveCandidates() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(candidates));
+    }
+
+    function renderAll() {
+        candidates.sort((a,b) => (parseInt(a.candidate_id||"0",10) - parseInt(b.candidate_id||"0",10)));
+        renderTable(document.getElementById("search").value.trim().toLowerCase());
+        renderDashboard();
+    }
+
+    function renderTable(q) {
+        const tbody = document.getElementById("tbody");
+        tbody.innerHTML = "";
+
+        const filtered = candidates.filter(c => {
+            if (!q) return true;
+            const blob = [
+                c.first_name, c.last_name, c.email, c.primary_skill,
+                c.interested_role_1, c.interested_role_2, c.interested_role_3,
+                c.overall_impression, c.follow_up_priority, c.follow_up_status
+            ].join(" ").toLowerCase();
+            return blob.includes(q);
+        });
+
+        for (const c of filtered) {
+            const tr = document.createElement("tr");
+            const roles = [c.interested_role_1, c.interested_role_2, c.interested_role_3].filter(Boolean).join(" • ");
+
+            tr.innerHTML = `
+        <td>${esc(c.candidate_id)}</td>
+        <td>
+          <div class="nameCell">
+            <div class="name">${esc(c.first_name)} ${esc(c.last_name)}</div>
+            <div class="meta">${esc(c.email || "")}</div>
+          </div>
+        </td>
+        <td>${esc(c.primary_skill || "")}</td>
+        <td class="small">${esc(roles)}</td>
+        <td><span class="pill ${pillClass(c.overall_impression)}">${esc(c.overall_impression || "(empty)")}</span></td>
+        <td><span class="pill ${pillClass(c.follow_up_priority)}">${esc(c.follow_up_priority || "(empty)")}</span></td>
+        <td class="small">${esc(c.follow_up_status || "")}</td>
+        <td>${esc(c.left_cv || "")}</td>
+        <td class="actionsCol">
+          <button class="btn tiny" data-edit="${esc(c.candidate_id)}">Edit</button>
+          <button class="btn tiny danger" data-del="${esc(c.candidate_id)}">Del</button>
+        </td>
+      `;
+            tbody.appendChild(tr);
+        }
+
+        tbody.querySelectorAll("[data-del]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.getAttribute("data-del");
+                if (!confirm("Να διαγραφεί ο υποψήφιος " + id + ";")) return;
+                candidates = candidates.filter(x => String(x.candidate_id) !== String(id));
+                saveCandidates();
+                renderAll();
+            });
+        });
+
+        tbody.querySelectorAll("[data-edit]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.getAttribute("data-edit");
+                const c = candidates.find(x => String(x.candidate_id) === String(id));
+                if (!c) return;
+                for (const h of HEADERS) {
+                    const el = document.getElementById(h);
+                    if (el) el.value = c[h] || "";
+                }
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+    }
+
+    function renderDashboard() {
+        const total = candidates.length;
+
+        const kpis = document.getElementById("kpis");
+        const positives = countWhere("overall_impression", "positive");
+        const highs = countWhere("follow_up_priority", "high");
+        const interviews = countWhere("follow_up_status", "interview_scheduled");
+
+        kpis.innerHTML = `
+      <div class="kpi"><div class="k">${total}</div><div class="t">Candidates</div></div>
+      <div class="kpi"><div class="k">${positives}</div><div class="t">Positive</div></div>
+      <div class="kpi"><div class="k">${highs}</div><div class="t">High priority</div></div>
+      <div class="kpi"><div class="k">${interviews}</div><div class="t">Interviews</div></div>
+    `;
+
+        const junior = candidates.filter(c => num(c.years_of_experience) <= 2).length;
+        const mid = candidates.filter(c => num(c.years_of_experience) >= 3 && num(c.years_of_experience) <= 5).length;
+        const senior = candidates.filter(c => num(c.years_of_experience) >= 6).length;
+
+        document.getElementById("seniorityBox").innerHTML = makeLines([
+            ["Junior", junior, pct(junior, total)],
+            ["Mid", mid, pct(mid, total)],
+            ["Senior", senior, pct(senior, total)]
+        ]);
+
+        const roleCounts = {};
+        for (const c of candidates) {
+            inc(roleCounts, c.interested_role_1);
+            inc(roleCounts, c.interested_role_2);
+            inc(roleCounts, c.interested_role_3);
+        }
+        document.getElementById("topRolesBox").innerHTML = makeTopN(roleCounts, 5);
+
+        document.getElementById("skillsBox").innerHTML = makeTopN(groupCount("primary_skill"), 8);
+        document.getElementById("impressionsBox").innerHTML = makeTopN(groupCount("overall_impression"), 8);
+        document.getElementById("priorityBox").innerHTML = makeTopN(groupCount("follow_up_priority"), 8);
+
+        const contacted = candidates.filter(c => (c.follow_up_status || "").trim() && c.follow_up_status !== "not_contacted").length;
+        const calls = candidates.filter(c => c.follow_up_status === "called" || c.follow_up_status === "interview_scheduled").length;
+
+        document.getElementById("funnelBox").innerHTML = makeLines([
+            ["Candidates", total, ""],
+            ["Contacted", contacted, ""],
+            ["Calls", calls, ""],
+            ["Interviews", interviews, ""]
+        ]);
+
+        const leftCvYes = countWhere("left_cv", "yes");
+        document.getElementById("cvBox").innerHTML = makeLines([
+            ["Left CV", `${leftCvYes}/${total || 0}`, total ? `${((leftCvYes*100)/total).toFixed(1)}%` : "0%"]
+        ]);
+
+        document.getElementById("availabilityBox").innerHTML = makeTopN(groupCount("availability"), 8);
+
+        const remoteOnly = candidates.filter(c => c.work_preference === "remote").length;
+        const notRemoteOnly = total - remoteOnly;
+        document.getElementById("remoteBox").innerHTML = makeLines([
+            ["Remote-only", remoteOnly, pct(remoteOnly, total)],
+            ["Not remote-only", notRemoteOnly, pct(notRemoteOnly, total)]
+        ]);
+    }
+
+    function toCsv(arr, headers) {
+        const lines = [];
+        lines.push(headers.join(","));
+        for (const obj of arr) {
+            const row = headers.map(h => csvEscape(obj[h] || ""));
+            lines.push(row.join(","));
+        }
+        return lines.join("\n");
+    }
+
+    function csvEscape(value) {
+        const s = String(value);
+        if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+        return s;
+    }
+
+    function parseCsv(text) {
+        const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+        if (lines.length < 2) return [];
+
+        const headers = parseCsvLine(lines[0]);
+        const res = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i];
+            if (!line.trim()) continue;
+
+            const values = parseCsvLine(line);
+            const obj = {};
+            for (let j = 0; j < headers.length; j++) obj[headers[j]] = (values[j] ?? "").trim();
+            for (const h of HEADERS) if (!(h in obj)) obj[h] = "";
+            res.push(obj);
+        }
+        return res;
+    }
+
+    function parseCsvLine(line) {
+        const out = [];
+        let cur = "";
+        let inQuotes = false;
+
+        for (let i = 0; i < line.length; i++) {
+            const ch = line[i];
+            if (ch === '"') {
+                if (inQuotes && line[i+1] === '"') { cur += '"'; i++; }
+                else inQuotes = !inQuotes;
+            } else if (ch === "," && !inQuotes) {
+                out.push(cur); cur = "";
+            } else cur += ch;
+        }
+        out.push(cur);
+        return out;
+    }
+
+    function downloadText(text, filename, mime) {
+        const blob = new Blob([text], { type: mime });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    function groupCount(key) {
+        const map = {};
+        for (const c of candidates) {
+            const v = (c[key] || "").trim() || "(empty)";
+            map[v] = (map[v] || 0) + 1;
+        }
+        return map;
+    }
+
+    function countWhere(key, value) {
+        return candidates.filter(c => (c[key] || "").trim().toLowerCase() === String(value).toLowerCase()).length;
+    }
+
+    function inc(map, v) {
+        const key = (v || "").trim();
+        if (!key) return;
+        map[key] = (map[key] || 0) + 1;
+    }
+
+    function num(v) {
+        const n = parseInt(v, 10);
+        return isNaN(n) ? 0 : n;
+    }
+
+    function pct(part, total) {
+        if (!total) return "0.0%";
+        return ((part * 100) / total).toFixed(1) + "%";
+    }
+
+    function makeTopN(map, n) {
+        const entries = Object.entries(map).sort((a,b) => b[1]-a[1]);
+        if (entries.length === 0) return `<div class="muted">(no data)</div>`;
+        return entries.slice(0, n).map(([k,v]) => `
+      <div class="line">
+        <span class="l">${esc(k)}</span>
+        <span class="r">${v}</span>
+      </div>
+    `).join("");
+    }
+
+    function makeLines(items) {
+        if (!items || items.length === 0) return `<div class="muted">(no data)</div>`;
+        return items.map(it => `
+      <div class="line">
+        <span class="l">${esc(String(it[0]))}</span>
+        <span class="r">${esc(String(it[1]))} ${it[2] ? `<span class="muted">(${esc(it[2])})</span>` : ""}</span>
+      </div>
+    `).join("");
+    }
+
+    function pillClass(v) {
+        const s = (v || "").toLowerCase();
+        if (s === "positive" || s === "high") return "good";
+        if (s === "negative") return "bad";
+        if (s === "neutral" || s === "medium") return "mid";
+        return "empty";
+    }
+
+    function esc(s) {
+        return String(s)
+            .replaceAll("&","&amp;")
+            .replaceAll("<","&lt;")
+            .replaceAll(">","&gt;")
+            .replaceAll('"',"&quot;");
+    }
+</script>
+</body>
+</html>
